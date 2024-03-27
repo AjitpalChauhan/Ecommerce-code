@@ -8,11 +8,19 @@ export function fetchAllProduct() {
   }    
   );
 }
-export function fetchAllProductByFilter(filter) {
-
+export function fetchAllProductByFilter(filter,sort) {
+  // filter = {"category": ["smartphone", "laptops"]}
+  //sort = {_sort:"price",_order="desc"}
   let queryString = '';
   for (const key in filter) {
-    queryString += `${key}=${filter[key]}&`
+    const categoryValues = filter[key];
+    if(categoryValues.length > 0){
+      const lastCategoryValue = categoryValues(categoryValues.length-1);
+      queryString += `${key}=${lastCategoryValue}&`
+    }
+  }
+  for (const key in sort) {
+    queryString += `${key}=${sort[key]}&`
   }
 
   return new Promise(async (resolve) => {
