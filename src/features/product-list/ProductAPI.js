@@ -38,3 +38,39 @@ export function fetchAllProductByFilter(filter,sort, pagination) {
   }    
   );
 }
+
+
+
+
+export function fetchAllCategory() {
+  return new Promise(async (resolve) => {
+    const response = await fetch(`http://localhost:8080/categories`)
+    const data = await response.json()
+    resolve({data})
+  }    
+  );
+}
+
+
+
+
+export function fetchAllBrands() {
+  return new Promise(async (resolve) => {
+    const response = await fetch(`http://localhost:8080/brands`)
+    const data = await response.json()
+    resolve({data})
+  }    
+  );
+}
+
+
+
+
+export function fetchProductById(id) {
+  return new Promise(async (resolve) => {
+    const response = await fetch(`http://localhost:8080/products/`+id)
+    const data = await response.json()
+    resolve({data})
+  }    
+  );
+}
