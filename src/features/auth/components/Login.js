@@ -1,6 +1,7 @@
 
 import { useSelector, useDispatch } from 'react-redux';
 import {
+  checkUserAsync,
   createUserAsync,
   increment,
   incrementAsync,
@@ -21,6 +22,7 @@ export default function Login() {
     watch,
     formState: { errors },
   } = useForm();
+
 
 
   return (
@@ -44,7 +46,7 @@ export default function Login() {
            noValidate
            onSubmit={handleSubmit((data) => {
             console.log(data)
-            dispatch(createUserAsync({email: data.email, password: data.password}))
+            dispatch(checkUserAsync({email: data.email, password: data.password}))
            })}
            className="space-y-6" method="POST">
             <div>
