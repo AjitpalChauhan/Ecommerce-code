@@ -11,7 +11,7 @@ import { XMarkIcon } from '@heroicons/react/24/outline'
 import { Link, Navigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { selectLoggedInUser, updateUserAsync } from '../features/auth/authSlice';
-import { createOrderAsync } from '../features/order/orderSlice';
+import { createOrderAsync, selectCurrentOrder } from '../features/order/orderSlice';
 
 
 
@@ -26,6 +26,7 @@ function CheckOut() {
   const totalAmout = items.reduce((amount, item) => item.price*item.quantity +amount, 0)
   const totalItems = items.reduce((total, item) => item.quantity + total, 0)
   const user = useSelector(selectLoggedInUser)
+  const currentOrder = useSelector(selectCurrentOrder)
 
   const handleQuantity = (e, item) => {
     const quantity = Number(e.target.value);
@@ -48,7 +49,7 @@ function CheckOut() {
 
   const handleOrder = (e) => {
     console.log(e)
-    const order = {items, totalAmout, totalItems, user, paymentMethod, selectedAddress}
+    const order = {items, totalAmout, totalItems, user, paymentMethod, selectedAddress, status: 'pending'}
     dispatch(createOrderAsync(order))
   }
 
@@ -62,6 +63,7 @@ function CheckOut() {
   return (
     <div>
       {!items.length && <Navigate to='/' replace={true}></Navigate>}
+      {currentOrder && <Navigate to={`/order-success/${currentOrder.id}`} replace={true}></Navigate>}
       <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-5">
           <div className="lg:col-span-3">
