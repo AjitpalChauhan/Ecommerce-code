@@ -1,14 +1,14 @@
 import { useSelector, useDispatch } from "react-redux";
-import { fetchLoggedInUserOrderAsync, selectUserOrders } from "../userSlice";
+import { fetchLoggedInUserOrderAsync, selectUserInfo, selectUserOrders } from "../userSlice";
 import { useEffect } from "react";
-import { selectLoggedInUser } from "../../auth/authSlice";
 
 export default function UserOrder() {
   const dispatch = useDispatch();
-  const user = useSelector(selectLoggedInUser);
+  const user = useSelector(selectUserInfo);
   const orders = useSelector(selectUserOrders);
 
   useEffect(() => {
+    console.log(`${user} this is the use`)
     if (user) {
       dispatch(fetchLoggedInUserOrderAsync(user.id));
     }
@@ -16,7 +16,7 @@ export default function UserOrder() {
 
   return (
     <div>
-      {orders && orders.map((order) => {
+      {orders && orders.map((order) => (
         <div key={order.id}>
           <div>
           <div className="mx-auto max-w-7xl mt-12 bg-white px-4 sm:px-6 lg:px-8">
@@ -111,8 +111,8 @@ export default function UserOrder() {
             </div>
           </div>
           </div>
-        </div>;
-      })}
+        </div>
+      ))}
     </div>
   );
 }

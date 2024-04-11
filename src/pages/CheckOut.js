@@ -10,8 +10,9 @@ import { Dialog, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { Link, Navigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { selectLoggedInUser, updateUserAsync } from '../features/auth/authSlice';
+import { updateUserAsync } from '../features/auth/authSlice';
 import { createOrderAsync, selectCurrentOrder } from '../features/order/orderSlice';
+import { selectUserInfo } from '../features/user/userSlice';
 
 
 
@@ -25,7 +26,7 @@ function CheckOut() {
   const items = useSelector(selectItem)
   const totalAmout = items.reduce((amount, item) => item.price*item.quantity +amount, 0)
   const totalItems = items.reduce((total, item) => item.quantity + total, 0)
-  const user = useSelector(selectLoggedInUser)
+  const user = useSelector(selectUserInfo)
   const currentOrder = useSelector(selectCurrentOrder)
 
   const handleQuantity = (e, item) => {
