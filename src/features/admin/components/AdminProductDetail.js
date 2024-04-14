@@ -6,6 +6,7 @@ import { fetchProductByIdAsync, selectProductById } from "../../product-list/Pro
 import { useParams } from "react-router-dom";
 import { selectLoggedInUser } from "../../auth/authSlice";
 import { addToCartAsync } from "../../cart/CartSlice";
+import { discountedPrice } from "../../../app/constant";
 
 const product = {
   name: "Basic Tee 6-Pack",
@@ -176,8 +177,11 @@ export default function AdminProductDetail() {
           {/* Options */}
           <div className="mt-4 lg:row-span-3 lg:mt-0">
             <h2 className="sr-only">Product information</h2>
-            <p className="text-3xl tracking-tight text-gray-900">
+            <p className="text-3xl line-through tracking-tight text-gray-900">
               ${product.price}
+            </p>
+            <p className="text-3xl tracking-tight text-gray-900">
+              ${discountedPrice(product)}
             </p>
 
             {/* Reviews */}
